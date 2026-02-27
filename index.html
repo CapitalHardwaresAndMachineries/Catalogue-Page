@@ -227,66 +227,27 @@
 .hidden { display: none !important; }
 
 
-/* ===== MOBILE PRODUCT FILTER FIX ===== */
-@media (max-width: 768px) {
+/* Hide old filter bar */
+#searchInput,
+#categorySelect,
+#sortSelect,
+button[onclick="resetFilters()"]{
+  display:none !important;
+}
 
-  #view-products > div:first-child {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
 
-  #view-products input,
-  #view-products select {
-    width: 100% !important;
-    font-size: 16px;
-    padding: 10px;
-  }
+/* ===== PRODUCT IMAGE FIT FIX (Products Page Only) ===== */
+.products-grid .product img{
+  object-fit: contain !important;
+  background: #111; /* prevents empty white space look */
+}
 
-  #view-products .btn {
-    width: 100%;
-  }
 
-  .products-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px;
-  }
-
-  .product.card {
-    padding: 10px !important;
-  }
-
-  .product.card h3 {
-    font-size: 14px;
-    line-height: 1.2;
-    margin: 6px 0;
-  }
-
-  .product.card .meta {
-    font-size: 12px;
-  }
-
-  .product.card img {
-    height: 120px !important;
-  }
-
-  .modal .box {
-    padding: 14px !important;
-    gap: 12px;
-  }
-
-  .detail-img {
-    height: 220px !important;
-  }
-
-  .modal .btn {
-    width: 100%;
-    margin-top: 8px;
-  }
-
-  button, select, input {
-    min-height: 44px;
-  }
+/* ===== MODAL IMAGE FULL VIEW FIX ===== */
+.detail-img{
+  object-fit: contain !important;
+  height: 420px !important;
+  background:#111;
 }
 
 </style>
@@ -403,7 +364,12 @@
 <button class="btn" onclick="resetFilters()">Reset</button>
 </div>
 </div>
+
+<div style="margin:20px 0;">
+  <div id="categoryBoxes" style="display:flex;flex-wrap:wrap;gap:12px;"></div>
+</div>
 <div class="products-grid" id="productsGrid" style="margin-top:16px">
+
 <div class="empty" id="emptyNotice">No products have been added yet. Open <strong>Admin</strong> and add products to the catalog.</div>
 </div>
 <div class="pagination" id="pagination" style="margin-top:18px"></div>
@@ -970,6 +936,59 @@ function toggleMobileMenu() {
   const m = document.getElementById('mobileMenu');
   m.classList.toggle('hidden');
 }
+</script>
+
+
+<script>
+function renderSimpleCategoryBoxes(products){
+  const container = document.getElementById('categoryBoxes');
+  if(!container) return;
+
+  container.innerHTML = '';
+
+  const categories = [...new Set(products.map(p=>p.category).filter(Boolean))];
+
+  function createBox(name, value){
+    const box = document.createElement('div');
+    box.textContent = name;
+    box.style.padding = "10px 18px";
+    box.style.borderRadius = "20px";
+    box.style.cursor = "pointer";
+    box.style.background = "rgba(255,255,255,0.05)";
+    box.style.border = "1px solid rgba(255,210,125,0.2)";
+    box.style.fontWeight = "600";
+    box.style.transition = "0.3s ease";
+
+    box.onclick = ()=>{
+      document.querySelectorAll('#categoryBoxes div')
+        .forEach(b=>b.style.background="rgba(255,255,255,0.05)");
+
+      box.style.background = "var(--gold)";
+
+      const select = document.getElementById('categorySelect');
+      if(select){
+        select.value = value;
+        applyFilters(); // use existing safe filter logic
+      }
+    };
+
+    container.appendChild(box);
+  }
+
+  createBox("All", "");
+
+  categories.forEach(cat=>{
+    createBox(cat, cat);
+  });
+}
+
+// Hook into existing product load safely
+const originalLoader = loadAndRenderProducts;
+loadAndRenderProducts = async function(){
+  await originalLoader();
+  const arr = getProductsArray();
+  renderSimpleCategoryBoxes(arr);
+};
 </script>
 
 </body>
