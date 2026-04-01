@@ -128,11 +128,31 @@
   border-radius: 12px;
   transition: .35s ease;
 }
-.product.card:hover img {
-  transform: scale(1.07);
-  filter: brightness(1.1);
+/* ===== ACHIEVEMENT CARD ===== */
+
+.achievement.card{
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,210,125,0.15);
+  border-radius: 14px !important;
+  padding: 14px !important;
+  backdrop-filter: blur(8px);
+  transition: all .32s ease;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.55);
 }
 
+.achievement.card:hover{
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.7), 0 0 22px rgba(255,210,125,0.25);
+  border-color: rgba(255,210,125,0.55);
+}
+
+.achievement.card img{
+  height:160px;
+  width:100%;
+  object-fit:cover;
+  border-radius:12px;
+  margin-bottom:8px;
+}
 .modal {
   backdrop-filter: blur(6px);
 }
@@ -265,11 +285,11 @@ button[onclick="resetFilters()"]{
   background:#e10600;
   color:#fff;
   padding:6px 14px;
-  font-size:13px;
+  font-size:25px;
   font-weight:800;
   letter-spacing:1px;
   border-radius:6px;
-  box-shadow:0 4px 12px rgba(225,6,0,0.4);
+  box-shadow:0 8px 16px rgba(225,6,0,0.4);
   z-index:10;
 }
 
@@ -304,14 +324,14 @@ button[onclick="resetFilters()"]{
 
 .out-ribbon{
   position:absolute;
-  top:16px;
+  top:45px;
   right:-48px;
   background:#e10600;
   color:#fff;
   padding:6px 70px;
   font-size:12px;
   font-weight:900;
-  letter-spacing:1px;
+  letter-spacing:2px;
   transform:rotate(45deg);
   text-align:center;
   box-shadow:0 4px 14px rgba(225,6,0,0.5);
@@ -332,12 +352,115 @@ button[onclick="resetFilters()"]{
   background:#c40000;
   color:#ffffff;
   text-align:center;
-  padding:12px 0;
-  font-size:16px;
+  padding:15px 0;
+  font-size:29px;
   font-weight:900;
   letter-spacing:1.5px;
-  border-radius:6px;
+  border-radius:9px;
   margin-bottom:10px;
+}
+
+
+/* ===== ULTRA PREMIUM GOLD DESCRIPTION BOX ===== */
+.premium-desc-box{
+  position:relative;
+  margin-top:22px;
+  padding:20px;
+  border-radius:16px;
+  background:linear-gradient(145deg, rgba(25,25,28,0.85), rgba(15,15,18,0.9));
+  border:1px solid rgba(255,210,125,0.5);
+  overflow:hidden;
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.7),
+    0 0 20px rgba(255,210,125,0.2);
+}
+
+.premium-desc-box::before{
+  content:'';
+  position:absolute;
+  inset:-2px;
+  border-radius:18px;
+  padding:2px;
+  background:linear-gradient(
+      120deg,
+      rgba(255,215,120,0.1),
+      rgba(255,215,120,0.6),
+      rgba(255,215,120,0.1)
+  );
+  -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+  animation: goldGlow 3s linear infinite;
+}
+
+@keyframes goldGlow{
+  0%   { filter: brightness(1); }
+  50%  { filter: brightness(1.6); }
+  100% { filter: brightness(1); }
+}
+
+.premium-desc-box h3{
+  margin:0 0 12px 0;
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:1.5px;
+  color:var(--gold);
+  text-transform:uppercase;
+}
+
+.premium-desc-box #detailDesc{
+  font-size:14px;
+  line-height:1.8;
+  color:var(--text);
+  opacity:0.95;
+}
+
+
+/* ===== PREMIUM CONTACT FORM ===== */
+
+#view-contact form{
+  background: linear-gradient(145deg, rgba(25,25,28,0.85), rgba(15,15,18,0.9));
+  padding: 28px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,210,125,0.35);
+  box-shadow:
+    0 15px 40px rgba(0,0,0,0.6),
+    0 0 25px rgba(255,210,125,0.15);
+  backdrop-filter: blur(12px);
+}
+
+#view-contact input,
+#view-contact textarea{
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  font-size: 15px;
+  transition: all .3s ease;
+}
+
+#view-contact textarea{
+  min-height: 150px;
+  resize: vertical;
+}
+
+#view-contact input::placeholder,
+#view-contact textarea::placeholder{
+  color: rgba(255,255,255,0.55);
+}
+
+#view-contact input:focus,
+#view-contact textarea:focus{
+  outline: none;
+  border: 1px solid var(--gold);
+  box-shadow:
+    0 0 12px rgba(255,210,125,0.5),
+    0 0 25px rgba(255,210,125,0.25);
+  background: rgba(255,255,255,0.06);
 }
 
 </style>
@@ -439,12 +562,13 @@ button[onclick="resetFilters()"]{
             </div></p>
 </div>
 </div>
+
 <!-- Navigation -->
 <nav style="display:flex; gap:12px;">
 <a class="active" data-route="home" href="#home">Home</a>
 <a data-route="products" href="#products">Products</a>
+<a data-route="achievements" href="#achievements">Achievements</a>
 <a data-route="contact" href="#contact">Contact</a>
-
 </nav>
 </div>
 </header>
@@ -455,6 +579,7 @@ button[onclick="resetFilters()"]{
 <div id="mobileMenu" class="mobile-menu hidden">
   <a href="#home" onclick="toggleMobileMenu()">Home</a>
   <a href="#products" onclick="toggleMobileMenu()">Products</a>
+  <a href="#achievements" onclick="toggleMobileMenu()">Achievements</a>
   <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
 </div>
 
@@ -480,7 +605,7 @@ button[onclick="resetFilters()"]{
 <p><strong>Email</strong><br/><a href="mailto:cap.machineries@gmail.com">cap.machineries@gmail.com</a></p>
 <p><strong>Contact</strong><br/>+919366513280</p>
 <hr style="margin:12px 0;border:none;border-top: 3px solid rgb(185 139 39);"/>
-<p><strong class="premium-sub">OFFICE/GODOWN</strong><br/>Central Jail Vneg,Tuivamit<br/>Mizoram, India</p>
+<p><strong class="premium-sub">GODOWN</strong><br/>Central Jail Vneg,Tuivamit<br/>Mizoram, India</p>
 <p><strong>Email</strong><br/><a href="mailto:mawmrangcomplex@gmail.com">mawmrangcomplex@gmail.com</a></p>
 <p><strong>Contact</strong><br/>+918132025646</p>
 </div>
@@ -516,6 +641,23 @@ button[onclick="resetFilters()"]{
 </div>
 <div class="pagination" id="pagination" style="margin-top:18px"></div>
 </section>
+
+<!-- ACHIEVEMENTS -->
+<section class="card" id="view-achievements" style="display:none">
+
+<h2 class="premium-head">Our Achievements</h2>
+<p class="meta">Milestones and recognitions of Capital Hardwares & Machineries.</p>
+
+<div class="products-grid" id="achievementGrid">
+
+<div class="empty">
+Achievements will appear here.
+</div>
+
+</div>
+
+</section>
+
 <!-- CONTACT -->
 <section class="card" id="view-contact" style="display:none">
 <h2 class="premium-head">Contact &amp; Inquiry</h2>
@@ -547,7 +689,7 @@ button[onclick="resetFilters()"]{
 <div>
 <img alt="Product image" class="detail-img" id="detailImg" src=""/>
 <h2 class="premium-sub" id="detailTitle"></h2>
-<p class="meta" id="detailDesc"></p>
+
 </div>
 <div>
 <div style="display:flex;justify-content:space-between;align-items:center">
@@ -561,9 +703,39 @@ button[onclick="resetFilters()"]{
 <button class="btn" onclick="contactAbout()">Inquire about this product</button>
 <button class="btn secondary" onclick="closeModal()" style="margin-left:8px">Close</button>
 </div>
+
+<!-- PREMIUM DESCRIPTION BOX -->
+<div class="premium-desc-box">
+  <h3>Product Description</h3>
+  <div id="detailDesc"></div>
 </div>
 </div>
 </div>
+</div>
+<!-- ACHIEVEMENT MODAL -->
+<div class="modal" id="achievementModal" onclick="if(event.target.id==='achievementModal') closeAchievementModal()">
+  <div class="box card">
+
+    <div>
+      <img id="achImg" class="detail-img">
+    </div>
+
+    <div>
+      <h2 id="achTitle"></h2>
+
+      <p class="meta" id="achDate"></p>
+
+      <div class="premium-desc-box">
+        <h3>Achievement Details</h3>
+        <div id="achDesc"></div>
+      </div>
+
+      <button class="btn secondary" onclick="closeAchievementModal()" style="margin-top:12px">Close</button>
+    </div>
+
+  </div>
+</div>
+
 <!-- Firebase initialization (Firestore) -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -598,8 +770,9 @@ button[onclick="resetFilters()"]{
   };
 </script>
 <script>
+
 /* Routing */
-const routes=['home','products','contact'];
+const routes=['home','products','achievements','contact'];
 function showView(view){
   routes.forEach(r=>{
     const el=document.getElementById('view-'+r);
@@ -613,6 +786,7 @@ function handleRoute(){
   if(!routes.includes(page)) page='home';
   showView(page);
   if(page==='products') setTimeout(()=> loadAndRenderProducts(),50);
+  if(page==='achievements') setTimeout(()=> loadAchievements(),50);
   if(page==='admin') initAdminView();
 }
 window.addEventListener('hashchange', handleRoute);
@@ -624,8 +798,10 @@ const STORAGE_KEY = 'cap_products';
 let PRODUCTS_MAP = {};
 let filteredList = [];
 let currentPage = 1;
-const perPage = 12;
-
+const perPage = 10;
+let achievementsList = [];
+let achievementPage = 1;
+const achievementPerPage = 10;
 /* Load products - now from Firestore */
 async function loadProductsFromLocal(){
   // loads products from Firestore into PRODUCTS_MAP
@@ -733,7 +909,7 @@ function openProduct(id){
   const productImage = p.image || p.img || p.imgUrl || p.url || 'https://i.ibb.co/7jmqfBB/no-image.jpg';
   document.getElementById('detailImg').src = productImage;
   document.getElementById('detailTitle').textContent = p.title || '';
-  document.getElementById('detailDesc').textContent = p.description || '';
+  document.getElementById('detailDesc').innerHTML = (p.description || '').replace(/\n/g, "<br>");
   
 if(p.outOfStock){
   document.getElementById('detailPrice').innerHTML = '<div class="modal-soldout-bar">SOLD OUT</div>';
@@ -753,6 +929,30 @@ function closeModal(){
     history.replaceState(null, null, '#products');
   }
 }
+
+function openAchievement(a){
+
+  document.getElementById("achImg").src =
+    a.image || "https://i.ibb.co/7jmqfBB/no-image.jpg";
+
+  document.getElementById("achTitle").textContent =
+    a.title || "";
+
+  document.getElementById("achDate").textContent =
+    a.date || "";
+
+  document.getElementById("achDesc").innerHTML =
+    (a.description || "").replace(/\n/g,"<br>");
+
+  document.getElementById("achievementModal")
+    .classList.add("open");
+}
+
+function closeAchievementModal(){
+  document.getElementById("achievementModal")
+    .classList.remove("open");
+}
+
 function showProductFromHash(hash){ const id = hash.split('-')[1]; if(id) openProduct(id); }
 
 /* Contact */
@@ -1174,6 +1374,128 @@ loadAndRenderProducts = async function(){
   const arr = getProductsArray();
   renderSimpleCategoryBoxes(arr);
 };
+
+/* ===== LOAD ACHIEVEMENTS ===== */
+
+async function loadAchievements(){
+
+  const grid = document.getElementById("achievementGrid");
+  grid.innerHTML = "";
+
+  achievementsList = [];
+
+  try{
+
+    const qs = await fb.getDocs(fb.collection(fb.db,"achievements"));
+
+    if(qs.empty){
+      grid.innerHTML = '<div class="empty">No achievements added yet.</div>';
+      return;
+    }
+
+    qs.forEach(doc=>{
+      achievementsList.push(doc.data());
+    });
+
+    renderAchievementPage();
+
+  }catch(err){
+
+    console.error("Achievement load error",err);
+    grid.innerHTML = '<div class="empty">Failed to load achievements.</div>';
+
+  }
+
+}
+
+function renderAchievementPage(){
+
+  const grid = document.getElementById("achievementGrid");
+  grid.innerHTML = "";
+
+  const start = (achievementPage - 1) * achievementPerPage;
+  const pageItems = achievementsList.slice(start, start + achievementPerPage);
+
+  pageItems.forEach(a=>{
+
+    const card = document.createElement("div");
+    card.className = "achievement card";
+
+    card.innerHTML = `
+      <img src="${a.image || 'https://i.ibb.co/7jmqfBB/no-image.jpg'}">
+      <h3>${a.title || ''}</h3>
+      <div class="meta">${a.date || ''}</div>
+    `;
+
+    card.onclick = ()=> openAchievement(a);
+
+    grid.appendChild(card);
+
+  });
+
+  renderAchievementPagination();
+
+}
+
+function renderAchievementPagination(){
+
+  let container = document.getElementById("achievementPagination");
+
+  if(!container){
+    container = document.createElement("div");
+    container.id = "achievementPagination";
+    container.className = "pagination";
+    container.style.marginTop = "20px";
+
+    document.getElementById("achievementGrid").after(container);
+  }
+
+  container.innerHTML = "";
+
+  const total = Math.ceil(achievementsList.length / achievementPerPage);
+
+  const prev = document.createElement("button");
+  prev.className = "btn secondary";
+  prev.textContent = "Prev";
+  prev.disabled = achievementPage === 1;
+
+  prev.onclick = ()=>{
+    achievementPage--;
+    renderAchievementPage();
+  };
+
+  const next = document.createElement("button");
+  next.className = "btn secondary";
+  next.textContent = "Next";
+  next.disabled = achievementPage === total;
+
+  next.onclick = ()=>{
+    achievementPage++;
+    renderAchievementPage();
+  };
+
+  container.appendChild(prev);
+
+  for(let i=1;i<=total;i++){
+    const b = document.createElement("button");
+    b.className = "btn secondary";
+    b.textContent = i;
+
+    if(i===achievementPage){
+      b.style.fontWeight="700";
+    }
+
+    b.onclick = ()=>{
+      achievementPage = i;
+      renderAchievementPage();
+    };
+
+    container.appendChild(b);
+  }
+
+  container.appendChild(next);
+}
+
 </script>
 
 </body>
