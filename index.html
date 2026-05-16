@@ -331,6 +331,17 @@ button[onclick="resetFilters()"]{
   min-height: 220px;
 }
 
+#productsGrid{
+  min-height:220px;
+}
+
+.product.card{
+  opacity:0;
+  transform:translateY(18px) scale(0.98);
+  animation:achievementFade .55s cubic-bezier(.22,.9,.3,1) forwards;
+  will-change:transform, opacity;
+}
+
 .achievement.card{
   opacity:0;
   transform:translateY(18px) scale(0.98);
@@ -348,31 +359,6 @@ button[onclick="resetFilters()"]{
     transform:translateY(0) scale(1);
   }
 }
-
-
-/* ===== SMOOTH PRODUCT LOADING ===== */
-#productsGrid{
-  min-height:220px;
-}
-
-.product.card{
-  opacity:0;
-  transform:translateY(18px) scale(0.98);
-  animation:productFade .55s cubic-bezier(.22,.9,.3,1) forwards;
-  will-change:transform, opacity;
-}
-
-@keyframes productFade{
-  0%{
-    opacity:0;
-    transform:translateY(18px) scale(0.98);
-  }
-  100%{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
-}
-
 
 /* ===== MODAL SOLD OUT RED BAR ===== */
 .modal-soldout-bar{
@@ -1173,9 +1159,9 @@ function renderProductsPage(){
   const start=(currentPage-1)*perPage;
   const pageItems = filteredList.slice(start,start+perPage);
   pageItems.forEach((p,index)=>{
-    const el=document.createElement('div'); el.className='product card';
+    const el=document.createElement('div'); 
+    el.className='product card';
     el.style.animationDelay = `${index * 0.08}s`;
-
     el.innerHTML = `
   ${p.outOfStock ? `
     <div class="out-ribbon">SOLD OUT</div>
@@ -1186,9 +1172,7 @@ function renderProductsPage(){
   <div class="meta">${p.category||''} • ${p.price||''}</div>
 `;
     el.onclick = ()=> openProduct(p.id);
-    requestAnimationFrame(()=>{
-      grid.appendChild(el);
-    });
+    grid.appendChild(el);
   });
   document.getElementById('resultsCount').textContent = `${filteredList.length.toLocaleString()} products`;
   renderPagination();
