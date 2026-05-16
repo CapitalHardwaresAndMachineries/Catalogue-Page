@@ -1004,7 +1004,10 @@ header div{
 <h3>Achievement Details</h3>
 <div id="achDesc"></div>
 </div>
-<button class="btn secondary" onclick="closeAchievementModal()" style="margin-top:12px">Close</button>
+<div style="margin-top:12px">
+  <button class="btn" onclick="enquireAchievement()">Enquire About This</button>
+  <button class="btn secondary" onclick="closeAchievementModal()" style="margin-left:8px">Close</button>
+</div>
 </div>
 </div>
 </div>
@@ -1215,15 +1218,43 @@ function openAchievement(a){
     a.date || "";
 
   document.getElementById("achDesc").innerHTML =
-    (a.description || "").replace(/\n/g,"<br>");
+    (a.description || "").replace(/
+/g,"<br>");
 
-  document.getElementById("achievementModal")
-    .classList.add("open");
+  const modal = document.getElementById("achievementModal");
+
+  modal.classList.remove("open");
+
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+      modal.classList.add("open");
+    });
+  });
+
 }
 
 function closeAchievementModal(){
   document.getElementById("achievementModal")
     .classList.remove("open");
+}
+
+function enquireAchievement(){
+
+  const title = document.getElementById("achTitle").textContent;
+
+  closeAchievementModal();
+
+  location.hash = 'contact';
+
+  setTimeout(()=>{
+
+    document.getElementById('subject').value =
+      `Achievement inquiry: ${title}`;
+
+    document.getElementById('message').focus();
+
+  },200);
+
 }
 
 function showProductFromHash(hash){ const id = hash.split('-')[1]; if(id) openProduct(id); }
