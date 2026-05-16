@@ -784,6 +784,37 @@ header div{
 
 }
 
+
+/* ===== POWERFUL MOBILE NAV BUTTONS ===== */
+.mobile-bottom-nav{
+  box-shadow:0 -8px 25px rgba(0,0,0,0.55);
+}
+
+.mobile-bottom-nav a{
+  flex:1;
+  height:100%;
+  transition:all .25s ease;
+  border-radius:14px;
+  margin:6px;
+  justify-content:center;
+}
+
+.mobile-bottom-nav a:hover,
+.mobile-bottom-nav a:active{
+  background:linear-gradient(135deg, rgba(185,139,39,0.35), rgba(255,255,255,0.08));
+  transform:translateY(-3px) scale(1.03);
+  box-shadow:0 0 18px rgba(255,210,125,0.28);
+}
+
+.mobile-bottom-nav a span{
+  transition:transform .25s ease;
+}
+
+.mobile-bottom-nav a:hover span,
+.mobile-bottom-nav a:active span{
+  transform:scale(1.15);
+}
+
 </style>
 </head>
 <body>
@@ -1808,11 +1839,39 @@ function renderAchievementPagination(){
 
 <!-- MOBILE BOTTOM NAV -->
 <div class="mobile-bottom-nav">
-  <a href="#home"><span>🏠</span>Home</a>
-  <a href="#products"><span>🛒</span>Products</a>
-  <a href="#achievements"><span>🏆</span>Awards</a>
-  <a href="#contact"><span>📞</span>Contact</a>
+  <a href="#home" onclick="event.preventDefault(); forceNavigate('home')"><span>🏠</span>Home</a>
+  <a href="#products" onclick="event.preventDefault(); forceNavigate('products')"><span>🛒</span>Products</a>
+  <a href="#achievements" onclick="event.preventDefault(); forceNavigate('achievements')"><span>🏆</span>Awards</a>
+  <a href="#contact" onclick="event.preventDefault(); forceNavigate('contact')"><span>📞</span>Contact</a>
 </div>
+
+<script>
+function forceNavigate(page){
+  closeModal();
+  try{ closeAchievementModal(); }catch(e){}
+
+  document.querySelectorAll('.modal').forEach(m=>{
+    m.classList.remove('open');
+    m.style.display='';
+  });
+
+  location.hash = page;
+  showView(page);
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+  if(page === 'products'){
+    setTimeout(()=>loadAndRenderProducts(),50);
+  }
+
+  if(page === 'achievements'){
+    setTimeout(()=>loadAchievements(),50);
+  }
+}
+</script>
 
 </body>
 </html>
