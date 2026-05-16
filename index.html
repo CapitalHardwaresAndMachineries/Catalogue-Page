@@ -13,48 +13,6 @@
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:Inter,Roboto,system-ui;color:var(--text);background:var(--bg)}
-
-/* ===== UNIFIED PREMIUM BUTTON UI ===== */
-.btn{
-  background:linear-gradient(135deg,#d4af37,#b98b27) !important;
-  color:#000 !important;
-  border:none !important;
-  padding:12px 18px !important;
-  border-radius:12px !important;
-  font-weight:800 !important;
-  letter-spacing:.4px;
-  cursor:pointer;
-  transition:all .28s ease;
-  box-shadow:
-    0 10px 24px rgba(185,139,39,0.28),
-    inset 0 1px 0 rgba(255,255,255,0.22);
-}
-
-.btn:hover{
-  transform:translateY(-3px) scale(1.02);
-  box-shadow:
-    0 16px 34px rgba(185,139,39,0.38),
-    0 0 18px rgba(255,210,125,0.22);
-}
-
-.btn.secondary{
-  background:rgba(255,255,255,0.05) !important;
-  color:var(--text) !important;
-  border:1px solid rgba(255,210,125,0.28) !important;
-  backdrop-filter:blur(10px);
-  box-shadow:
-    0 8px 22px rgba(0,0,0,0.45),
-    0 0 12px rgba(255,210,125,0.10);
-}
-
-.btn.secondary:hover{
-  transform:translateY(-3px) scale(1.02);
-  border-color:rgba(255,210,125,0.6) !important;
-  box-shadow:
-    0 14px 30px rgba(0,0,0,0.55),
-    0 0 18px rgba(255,210,125,0.18);
-}
-
   header{
   background:linear-gradient(135deg,#111111,#2b2b2b,#8f8f8f,#d4d4d4);
   color:#fff;
@@ -125,7 +83,6 @@ header::before{
 .h-premium {
   font-weight:900 !important;
   letter-spacing:1px !important;
-  text-transform:uppercase !important;
   color:var(--gold) !important;
   position:relative;
 }
@@ -144,13 +101,11 @@ header::before{
 .h-industrial {
   font-weight:800 !important;
   letter-spacing:0.5px !important;
-  text-transform:uppercase !important;
   color:var(--text) !important;
 }
 
 .premium-head {
   font-weight:900 !important;
-  text-transform:uppercase !important;
   letter-spacing:1.2px !important;
   color:var(--text) !important;
   background:linear-gradient(90deg,#bfa76a,#e0c98a,#bfa76a);
@@ -161,7 +116,6 @@ header::before{
 
 .premium-sub {
   font-weight:800 !important;
-  text-transform:uppercase !important;
   letter-spacing:0.8px !important;
   color:var(--text) !important;
   opacity:0.92;
@@ -452,7 +406,7 @@ button[onclick="resetFilters()"]{
   font-weight:900;
   letter-spacing:1.5px;
   color:var(--gold);
-  text-transform:uppercase;
+  
 }
 
 .premium-desc-box #detailDesc{
@@ -899,7 +853,7 @@ header div{
         font-size:34px;
         font-weight:900;
         color:#d4edec;
-        text-transform:uppercase;
+        
         letter-spacing:1px;
     ">
         Capital Hardwares
@@ -916,7 +870,7 @@ header div{
         font-size:32px;
         font-weight:900;
         color:#d4edec;
-        text-transform:uppercase;
+        
         letter-spacing:1px;
     ">
         Machineries
@@ -1045,7 +999,7 @@ header div{
 <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.04)"/>
 <p><strong>📂 Category:</strong> <span id="detailCat"></span></p>
 <p><strong>🏷️ Tags:</strong> <span id="detailTags"></span></p>
-<div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
+<div style="margin-top:12px">
 <button class="btn" onclick="contactAbout()">Inquire about this product</button>
 <button class="btn secondary" onclick="closeModal()" style="margin-left:8px">Close</button>
 </div>
