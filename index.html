@@ -1884,8 +1884,20 @@ function renderAchievementPagination(){
 
 <script>
 function forceNavigate(page){
-  closeModal();
-  try{ closeAchievementModal(); }catch(e){}
+
+  try{
+    const productModal = document.getElementById('modal');
+    if(productModal){
+      productModal.classList.remove('open');
+    }
+  }catch(e){}
+
+  try{
+    const achievementModal = document.getElementById('achievementModal');
+    if(achievementModal){
+      achievementModal.classList.remove('open');
+    }
+  }catch(e){}
 
   document.querySelectorAll('.modal').forEach(m=>{
     m.classList.remove('open');
@@ -1893,20 +1905,25 @@ function forceNavigate(page){
   });
 
   location.hash = page;
-  showView(page);
 
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
+  setTimeout(()=>{
+    showView(page);
 
-  if(page === 'products'){
-    setTimeout(()=>loadAndRenderProducts(),50);
-  }
+    if(page === 'products'){
+      loadAndRenderProducts();
+    }
 
-  if(page === 'achievements'){
-    setTimeout(()=>loadAchievements(),50);
-  }
+    if(page === 'achievements'){
+      loadAchievements();
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+
+  },20);
+
 }
 </script>
 
