@@ -26,8 +26,8 @@ header::before{
   position:absolute;
   inset:0;
   background:url('https://i.ibb.co/67bXFH76/LOGO.png') center center no-repeat;
-  background-size:320px;
-  opacity:0.08;
+  background-size:95% auto;
+  opacity:0.12;
   pointer-events:none;
   z-index:0;
 }
@@ -772,8 +772,8 @@ header div{
 @media(max-width:768px){
 
   header::before{
-    background-size:180px;
-    opacity:0.06;
+    background-size:140% auto;
+    opacity:0.08;
   }
 
   header img{
@@ -793,19 +793,8 @@ header div{
      justify-content:space-between;
      gap:20px;
 ">
-<!-- Logo + Company Name in Row -->
+<!-- Company Name Only -->
 <div onclick="navigate('home')" style="display:flex; align-items:center; gap:12px; cursor:pointer;">
-<img 
-  alt="Company Logo"
-  src="https://i.ibb.co/67bXFH76/LOGO.png"
-  style="
-    height:120px;
-    width:auto;
-    object-fit:contain;
-    display:block;
-    opacity:0.95;
-  "
-/>
 <div style="display:flex; flex-direction:column; line-height:1.1;">
 <div style="text-align:center; line-height:1.1;">
 <div style="
