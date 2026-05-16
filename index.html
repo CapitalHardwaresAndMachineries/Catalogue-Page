@@ -331,17 +331,6 @@ button[onclick="resetFilters()"]{
   min-height: 220px;
 }
 
-#productsGrid{
-  min-height:220px;
-}
-
-.product.card{
-  opacity:0;
-  transform:translateY(18px) scale(0.98);
-  animation:achievementFade .55s cubic-bezier(.22,.9,.3,1) forwards;
-  will-change:transform, opacity;
-}
-
 .achievement.card{
   opacity:0;
   transform:translateY(18px) scale(0.98);
@@ -982,7 +971,7 @@ header div{
 <form onsubmit="submitContact(event)" style="display:grid;gap:10px;max-width:700px">
 <input id="name" placeholder="Your name" required=""/>
 <input id="email" placeholder="Your email (optional)"/>
-<input id="whatsapp" placeholder="Your WhatsApp number"/>
+<input id="whatsapp" placeholder="Your Contact Number" required/>
 <input id="subject" placeholder="Product Name or Id Number"/>
 <textarea id="message" placeholder="Message" rows="6"></textarea>
 <div style="display:flex;gap:8px">
@@ -1158,10 +1147,8 @@ function renderProductsPage(){
   grid.innerHTML='';
   const start=(currentPage-1)*perPage;
   const pageItems = filteredList.slice(start,start+perPage);
-  pageItems.forEach((p,index)=>{
-    const el=document.createElement('div'); 
-    el.className='product card';
-    el.style.animationDelay = `${index * 0.08}s`;
+  pageItems.forEach(p=>{
+    const el=document.createElement('div'); el.className='product card';
     el.innerHTML = `
   ${p.outOfStock ? `
     <div class="out-ribbon">SOLD OUT</div>
