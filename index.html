@@ -1072,6 +1072,7 @@ let filteredList = [];
 let currentPage = 1;
 const perPage = 10;
 let achievementsList = [];
+let allAchievements = [];
 let achievementPage = 1;
 const achievementPerPage = 10;
 /* Load products - now from Firestore */
@@ -1693,11 +1694,16 @@ async function loadAchievements(){
       return;
     }
 
+    achievementsList = [];
+    allAchievements = [];
+
     qs.forEach(doc=>{
-      achievementsList.push(doc.data());
+      const item = doc.data();
+      achievementsList.push(item);
+      allAchievements.push(item);
     });
 
-    renderAchievementCategoryBoxes(achievementsList); // ✅ NEW LINE
+    renderAchievementCategoryBoxes(allAchievements);
     renderAchievementPage();
 
   }catch(err){
@@ -1759,7 +1765,7 @@ function renderAchievementCategoryBoxes(data){
       document.querySelectorAll('#achievementCategoryBoxes .subcategory-container')
         .forEach(el => el.style.display = "none");
 
-      achievementsList = data.filter(a => a.category === category);
+      achievementsList = allAchievements.filter(a => a.category === category);
       achievementPage = 1;
       renderAchievementPage();
 
