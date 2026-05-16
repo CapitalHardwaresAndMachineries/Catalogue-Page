@@ -463,6 +463,14 @@ button[onclick="resetFilters()"]{
   background: rgba(255,255,255,0.06);
 }
 
+
+
+/* REMOVE HAMBURGER MENU COMPLETELY */
+.mobile-menu,
+.mobile-menu-btn{
+  display:none !important;
+}
+
 </style>
 <style>
 /* ===== PREMIUM VERTICAL CATEGORY STYLE ===== */
@@ -693,29 +701,7 @@ nav{
   flex-shrink:0;
 }
 
-/* MOBILE MENU BUTTON */
-.mobile-menu-btn{
-  top:14px !important;
-  left:auto !important;
-  right:16px !important;
-  color:#fff !important;
-  background:#232f3e;
-  width:42px;
-  height:42px;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px !important;
-}
 
-.mobile-menu{
-  left:auto !important;
-  right:16px !important;
-  top:65px !important;
-  width:220px;
-  background:#232f3e !important;
-}
 
 /* TYPOGRAPHY */
 .premium-head{
@@ -815,24 +801,7 @@ nav{
 </nav>
 </div>
 </header>
-<!-- MOBILE MENU BUTTON (visible only on mobile) -->
-<div class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</div>
-<!-- MOBILE DROPDOWN MENU -->
-<div class="mobile-menu hidden" id="mobileMenu">
-<a href="#home" onclick="toggleMobileMenu()">Home</a>
-<a href="#products" onclick="toggleMobileMenu()">Products</a>
-<a href="#achievements" onclick="toggleMobileMenu()">Achievements</a>
-<a href="#contact" onclick="toggleMobileMenu()">Contact</a>
-</div>
-<main class="container" id="app">
-<!-- HOME -->
-<section class="card glass" id="view-home">
-<div class="hero">
-<div>
-<h1 class="premium-head"><strong>CAPITAL HARDWARES &amp; MACHINERIES - Providing best quality products</strong></h1>
-<p class="meta" style="margin-top:30px"><font-size:15px;>Founded in 1991, we showcase a wide range of products — from Hardware to Machineries. This site is a display-only catalog so customers can browse before contacting us for inquiries.</font-size:15px;></p>
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px">
-<div class="card hover-float glow-hover light-glass" style="padding:14px;text-align:center"><strong>5000+</strong><div class="meta">Products &amp; Spare Parts Stock In Hand</div></div>
+
 <div class="card hover-float glow-hover light-glass" style="padding:14px;text-align:center"><strong>PAN INDIA</strong><div class="meta">Customers &amp; viewers</div></div>
 <div class="card hover-float glow-hover light-glass" style="padding:14px;text-align:center"><strong>Display-only</strong><div class="meta">No checkout</div></div>
 </div>
@@ -1516,12 +1485,7 @@ document.getElementById('importFile').addEventListener('change', function(e){
 });
 
 </script>
-<script>
-function toggleMobileMenu() {
-  const m = document.getElementById('mobileMenu');
-  m.classList.toggle('hidden');
-}
-</script>
+
 <script>
 
 
