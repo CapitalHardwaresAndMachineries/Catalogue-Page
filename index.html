@@ -13,7 +13,24 @@
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:Inter,Roboto,system-ui;color:var(--text);background:var(--bg)}
-  header{background:linear-gradient(90deg,var(--gold),var(--silver));color:#000;padding:18px 16px}
+  header{
+  background:linear-gradient(135deg,#111111,#2b2b2b,#8f8f8f,#d4d4d4);
+  color:#fff;
+  padding:18px 16px;
+  position:relative;
+  overflow:hidden;
+}
+
+header::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:url('https://i.ibb.co/67bXFH76/LOGO.png') center center no-repeat;
+  background-size:320px;
+  opacity:0.08;
+  pointer-events:none;
+  z-index:0;
+}
   .container{max-width:1100px;margin:0 auto;padding:16px}
   nav{display:flex;gap:12px;justify-content:flex-end}
   nav a{color:#000;text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:700}
@@ -525,9 +542,8 @@ body{
 /* HEADER */
 header{
   position:relative;
-  background:linear-gradient(135deg,#111111,#2b2b2b,#8f8f8f,#d4d4d4);
-  color:#fff;
-  padding:18px 16px;
+  background:linear-gradient(135deg,#1a1a1a,#2f2f2f,#b8b8b8);
+  padding:10px 12px !important;
 }
 
 header .container{
@@ -719,6 +735,54 @@ nav{
 
 }
 
+
+
+/* ===== CENTER WATERMARK LOGO HEADER ===== */
+
+header .container{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center !important;
+  justify-content:center !important;
+  text-align:center;
+  gap:12px;
+}
+
+header .container > div:first-child{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  gap:10px;
+}
+
+header nav{
+  justify-content:center !important;
+  width:100%;
+}
+
+header p,
+header div{
+  text-align:center;
+}
+
+@media(max-width:768px){
+
+  header::before{
+    background-size:180px;
+    opacity:0.06;
+  }
+
+  header img{
+    height:80px !important;
+    width:auto;
+  }
+
+}
+
 </style>
 </head>
 <body>
@@ -731,7 +795,17 @@ nav{
 ">
 <!-- Logo + Company Name in Row -->
 <div onclick="navigate('home')" style="display:flex; align-items:center; gap:12px; cursor:pointer;">
-<img alt="Company Logo" src="https://i.ibb.co/67bXFH76/LOGO.png" style="height:200px; width:auto; object-fit:contain;"/>
+<img 
+  alt="Company Logo"
+  src="https://i.ibb.co/67bXFH76/LOGO.png"
+  style="
+    height:120px;
+    width:auto;
+    object-fit:contain;
+    display:block;
+    opacity:0.95;
+  "
+/>
 <div style="display:flex; flex-direction:column; line-height:1.1;">
 <div style="text-align:center; line-height:1.1;">
 <div style="
