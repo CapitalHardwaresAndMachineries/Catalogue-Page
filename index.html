@@ -205,46 +205,7 @@
 }
 
 
-/* ===== MOBILE HAMBURGER MENU (Safe Addition) ===== */
-@media (max-width: 768px) {
 
-  nav { display: none !important; }
-
-  .mobile-menu-btn {
-    position: absolute;
-    top: 22px;
-    left: 22px;
-    font-size: 32px;
-    cursor: pointer;
-    color: black;
-    z-index: 9999;
-  }
-
-  .mobile-menu {
-    position: absolute;
-    top: 90px;
-    left: 20px;
-    background: #1a1a1a;
-    padding: 14px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 170px;
-    border: 1px solid rgba(255,255,255,0.1);
-    z-index: 9999;
-  }
-
-  .mobile-menu a {
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 6px;
-    background: rgba(255,255,255,0.06);
-  }
-}
-
-.hidden { display: none !important; }
 
 
 /* Hide old filter bar */
@@ -461,26 +422,6 @@ button[onclick="resetFilters()"]{
     0 0 12px rgba(255,210,125,0.5),
     0 0 25px rgba(255,210,125,0.25);
   background: rgba(255,255,255,0.06);
-}
-
-
-
-/* REMOVE HAMBURGER MENU COMPLETELY */
-.mobile-menu,
-.mobile-menu-btn{
-  display:none !important;
-}
-
-
-
-/* MOBILE NAV FIX */
-.mobile-bottom-nav a{
-  cursor:pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.mobile-bottom-nav a:active{
-  opacity:0.7;
 }
 
 </style>
@@ -713,7 +654,29 @@ nav{
   flex-shrink:0;
 }
 
+/* MOBILE MENU BUTTON */
+.mobile-menu-btn{
+  top:14px !important;
+  left:auto !important;
+  right:16px !important;
+  color:#fff !important;
+  background:#232f3e;
+  width:42px;
+  height:42px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px !important;
+}
 
+.mobile-menu{
+  left:auto !important;
+  right:16px !important;
+  top:65px !important;
+  width:220px;
+  background:#232f3e !important;
+}
 
 /* TYPOGRAPHY */
 .premium-head{
@@ -814,6 +777,15 @@ nav{
 </div>
 </header>
 
+<main class="container" id="app">
+<!-- HOME -->
+<section class="card glass" id="view-home">
+<div class="hero">
+<div>
+<h1 class="premium-head"><strong>CAPITAL HARDWARES &amp; MACHINERIES - Providing best quality products</strong></h1>
+<p class="meta" style="margin-top:30px"><font-size:15px;>Founded in 1991, we showcase a wide range of products — from Hardware to Machineries. This site is a display-only catalog so customers can browse before contacting us for inquiries.</font-size:15px;></p>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px">
+<div class="card hover-float glow-hover light-glass" style="padding:14px;text-align:center"><strong>5000+</strong><div class="meta">Products &amp; Spare Parts Stock In Hand</div></div>
 <div class="card hover-float glow-hover light-glass" style="padding:14px;text-align:center"><strong>PAN INDIA</strong><div class="meta">Customers &amp; viewers</div></div>
 <div class="card hover-float glow-hover light-glass" style="padding:14px;text-align:center"><strong>Display-only</strong><div class="meta">No checkout</div></div>
 </div>
@@ -1771,15 +1743,13 @@ function renderAchievementPagination(){
 
 </script>
 
-
 <!-- MOBILE BOTTOM NAV -->
 <div class="mobile-bottom-nav">
-  <a href="javascript:void(0)" onclick="navigate('home')"><span>🏠</span>Home</a>
-  <a href="javascript:void(0)" onclick="navigate('products')"><span>🛒</span>Products</a>
-  <a href="javascript:void(0)" onclick="navigate('achievements')"><span>🏆</span>Awards</a>
-  <a href="javascript:void(0)" onclick="navigate('contact')"><span>📞</span>Contact</a>
+  <a href="#home"><span>🏠</span>Home</a>
+  <a href="#products"><span>🛒</span>Products</a>
+  <a href="#achievements"><span>🏆</span>Awards</a>
+  <a href="#contact"><span>📞</span>Contact</a>
 </div>
-
 
 </body>
 </html>
