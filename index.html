@@ -471,6 +471,18 @@ button[onclick="resetFilters()"]{
   display:none !important;
 }
 
+
+
+/* MOBILE NAV FIX */
+.mobile-bottom-nav a{
+  cursor:pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-bottom-nav a:active{
+  opacity:0.7;
+}
+
 </style>
 <style>
 /* ===== PREMIUM VERTICAL CATEGORY STYLE ===== */
@@ -1759,13 +1771,15 @@ function renderAchievementPagination(){
 
 </script>
 
+
 <!-- MOBILE BOTTOM NAV -->
 <div class="mobile-bottom-nav">
-  <a href="#home"><span>🏠</span>Home</a>
-  <a href="#products"><span>🛒</span>Products</a>
-  <a href="#achievements"><span>🏆</span>Awards</a>
-  <a href="#contact"><span>📞</span>Contact</a>
+  <a href="javascript:void(0)" onclick="navigate('home')"><span>🏠</span>Home</a>
+  <a href="javascript:void(0)" onclick="navigate('products')"><span>🛒</span>Products</a>
+  <a href="javascript:void(0)" onclick="navigate('achievements')"><span>🏆</span>Awards</a>
+  <a href="javascript:void(0)" onclick="navigate('contact')"><span>📞</span>Contact</a>
 </div>
+
 
 </body>
 </html>
