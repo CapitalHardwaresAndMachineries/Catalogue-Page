@@ -1163,13 +1163,17 @@ header div{
 const routes=['home','products','achievements','contact'];
 function showView(view){
 
-  // Show header only on home page
+  // Keep header visible but hide desktop menu outside home page
   const header = document.querySelector('header');
   if(header){
-    header.style.display = (view === 'home') ? 'block' : 'none';
+    header.style.display = 'block';
   }
 
-  routes.forEach(r=>{
+  const desktopNav = document.querySelector('header nav');
+  if(desktopNav && window.innerWidth > 768){
+    desktopNav.style.display = (view === 'home') ? 'flex' : 'none';
+  }
+routes.forEach(r=>{
     const el=document.getElementById('view-'+r);
     if(el) el.style.display = (r===view)?'block':'none';
   });
