@@ -1681,6 +1681,9 @@ function renderAchievementPage(){
 
   const pageItems = achievementsList.slice(start, end);
 
+  // Prevent duplicate appends during rapid re-render
+  const fragment = document.createDocumentFragment();
+
   pageItems.forEach((a,index)=>{
 
     const el = document.createElement("div");
@@ -1696,11 +1699,11 @@ function renderAchievementPage(){
 
     el.onclick = ()=> openAchievement(a);
 
-    requestAnimationFrame(()=>{
-      grid.appendChild(el);
-    });
+    fragment.appendChild(el);
 
   });
+
+  grid.appendChild(fragment);
 
   renderAchievementPagination();
 
