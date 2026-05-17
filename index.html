@@ -1028,7 +1028,37 @@ header div{
 <h3>Achievement Details</h3>
 <div id="achDesc"></div>
 </div>
-<button class="btn secondary" onclick="closeAchievementModal()" style="margin-top:12px">Close</button>
+
+<div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+
+  <button
+    class="btn"
+    onclick="inquireAchievement()"
+    style="
+      background:var(--gold);
+      color:#000;
+      font-weight:800;
+      box-shadow:0 0 16px rgba(255,210,125,0.25);
+    "
+  >
+    Inquire About This
+  </button>
+
+  <button
+    class="btn"
+    onclick="closeAchievementModal()"
+    style="
+      background:var(--gold);
+      color:#000;
+      font-weight:800;
+      box-shadow:0 0 16px rgba(255,210,125,0.25);
+    "
+  >
+    Close
+  </button>
+
+</div>
+
 </div>
 </div>
 </div>
@@ -1255,6 +1285,29 @@ function showProductFromHash(hash){ const id = hash.split('-')[1]; if(id) openPr
 /* Contact */
 function contactAbout(){
   closeModal(); const id=document.getElementById('detailId').textContent; location.hash='contact'; setTimeout(()=>{ document.getElementById('subject').value=`Product inquiry: ID #${id} — ${document.getElementById('detailTitle').textContent}`; document.getElementById('message').focus(); },200); }
+
+function inquireAchievement(){
+
+  const title = document.getElementById('achTitle').textContent;
+
+  closeAchievementModal();
+
+  location.hash='contact';
+
+  setTimeout(()=>{
+
+    document.getElementById('subject').value =
+      `Achievement inquiry: ${title}`;
+
+    document.getElementById('message').value =
+      `Hello, I would like to inquire about this achievement:\n\n${title}`;
+
+    document.getElementById('message').focus();
+
+  },200);
+
+}
+
 async function submitContact(e){
   e.preventDefault();
   const payload = {
