@@ -212,6 +212,67 @@ header::before{
 }
 
 
+
+/* ===== UNIFIED POPUP STYLE ===== */
+
+.modal .box,
+#achievementModal .box{
+  font-family: Inter, Roboto, system-ui, sans-serif;
+}
+
+/* SAME TITLE STYLE */
+#detailTitle,
+#achTitle{
+  font-size:32px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-top:18px;
+}
+
+/* SAME DESCRIPTION STYLE */
+#detailDesc,
+#achDesc{
+  font-size:15px;
+  line-height:1.9;
+  color:var(--text);
+}
+
+/* SAME BUTTON STYLE */
+.popup-btn-yellow{
+  background:var(--gold) !important;
+  color:#000 !important;
+  font-weight:800 !important;
+  border:none !important;
+  border-radius:10px !important;
+  padding:12px 18px !important;
+  box-shadow:0 0 16px rgba(255,210,125,0.25);
+  transition:.3s ease;
+}
+
+.popup-btn-yellow:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 24px rgba(255,210,125,0.45);
+}
+
+/* BLACK CLOSE BUTTON */
+.popup-btn-close{
+  background:#000 !important;
+  color:#d0d0d0 !important;
+  font-weight:800 !important;
+  border:1px solid rgba(255,255,255,0.12) !important;
+  border-radius:10px !important;
+  padding:12px 18px !important;
+  transition:.3s ease;
+}
+
+.popup-btn-close:hover{
+  background:#111 !important;
+  color:#fff !important;
+}
+
+
 /* MOBILE FIXES */
 @media(max-width:768px){
  header img{height:80px!important;}
@@ -1003,9 +1064,22 @@ header div{
 <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.04)"/>
 <p><strong>📂 Category:</strong> <span id="detailCat"></span></p>
 <p><strong>🏷️ Tags:</strong> <span id="detailTags"></span></p>
-<div style="margin-top:12px">
-<button class="btn" onclick="contactAbout()">Inquire about this product</button>
-<button class="btn secondary" onclick="closeModal()" style="margin-left:8px">Close</button>
+<div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+
+  <button
+    class="popup-btn-yellow"
+    onclick="contactAbout()"
+  >
+    Inquire About This Product
+  </button>
+
+  <button
+    class="popup-btn-close"
+    onclick="closeModal()"
+  >
+    Close
+  </button>
+
 </div>
 <!-- PREMIUM DESCRIPTION BOX -->
 <div class="premium-desc-box">
@@ -1029,30 +1103,18 @@ header div{
 <div id="achDesc"></div>
 </div>
 
-<div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+<div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
 
   <button
-    class="btn"
+    class="popup-btn-yellow"
     onclick="inquireAchievement()"
-    style="
-      background:var(--gold);
-      color:#000;
-      font-weight:800;
-      box-shadow:0 0 16px rgba(255,210,125,0.25);
-    "
   >
     Inquire About This
   </button>
 
   <button
-    class="btn"
+    class="popup-btn-close"
     onclick="closeAchievementModal()"
-    style="
-      background:var(--gold);
-      color:#000;
-      font-weight:800;
-      box-shadow:0 0 16px rgba(255,210,125,0.25);
-    "
   >
     Close
   </button>
