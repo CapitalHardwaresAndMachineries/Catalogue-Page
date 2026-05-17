@@ -527,22 +527,6 @@ button[onclick="resetFilters()"]{
   background: rgba(255,255,255,0.06);
 }
 
-
-/* FIX NAVBAR SHOWING INSIDE POPUP */
-header nav{
-  position: relative;
-  z-index: 1;
-}
-
-.modal{
-  z-index: 99999 !important;
-}
-
-.modal .box{
-  position: relative;
-  z-index: 100000;
-}
-
 </style>
 <style>
 /* ===== PREMIUM VERTICAL CATEGORY STYLE ===== */
@@ -1336,10 +1320,24 @@ if(p.outOfStock){
   document.getElementById('detailCat').textContent = p.category || '';
   document.getElementById('detailTags').textContent = (p.tags||[]).join(', ');
   document.getElementById('modal').classList.add('open');
+
+  // Hide top navigation while popup is open
+  const topNav = document.querySelector('header nav');
+  if(topNav){
+    topNav.style.visibility = 'hidden';
+  }
+
   location.hash = 'product-'+p.id;
 }
 function closeModal(){ 
   document.getElementById('modal').classList.remove('open');
+
+  // Restore top navigation
+  const topNav = document.querySelector('header nav');
+  if(topNav){
+    topNav.style.visibility = 'visible';
+  }
+
   if(location.hash.startsWith('#product-')){
     history.replaceState(null, null, '#products');
   }
