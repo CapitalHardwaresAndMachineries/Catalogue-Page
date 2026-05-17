@@ -530,13 +530,14 @@ button[onclick="resetFilters()"]{
 
 /* FINAL POPUP OVERLAY FIX */
 header{
-  position: relative;
-  z-index: 10;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 header nav{
   position: relative;
-  z-index: 10;
+  z-index: 100;
 }
 
 .modal{
@@ -1188,10 +1189,10 @@ header div{
 const routes=['home','products','achievements','contact'];
 function showView(view){
 
-  // Show header only on home page
+  // Keep header visible on all pages
   const header = document.querySelector('header');
   if(header){
-    header.style.display = (view === 'home') ? 'block' : 'none';
+    header.style.display = 'block';
   }
 
   routes.forEach(r=>{
