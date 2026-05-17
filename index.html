@@ -659,144 +659,49 @@ body.loading{
 
 </style>
 <style>
-/* ===== PREMIUM DROPDOWN CATEGORY MENU ===== */
 
-#categoryBoxes{
+/* ===== PREMIUM DROPDOWN FILTER ===== */
+
+.filter-wrap{
   display:flex;
-  flex-wrap:wrap;
   gap:14px;
-  margin-bottom:20px;
-}
-
-.category-wrapper{
-  position:relative;
-}
-
-.main-category{
-  position:relative;
-  padding:14px 22px;
-  min-width:220px;
-  border-radius:16px;
-  cursor:pointer;
-  background:
-    linear-gradient(145deg,
-      rgba(255,215,120,0.12),
-      rgba(255,255,255,0.04));
-  border:1px solid rgba(255,215,120,0.28);
-  color:#f5ecd8;
-  font-weight:800;
-  letter-spacing:.8px;
-  backdrop-filter:blur(12px);
-  transition:.35s ease;
-  box-shadow:
-    0 10px 28px rgba(0,0,0,0.45);
-}
-
-.main-category:hover{
-  transform:translateY(-4px);
-  border-color:rgba(255,215,120,0.6);
-  box-shadow:
-    0 14px 32px rgba(0,0,0,0.6),
-    0 0 20px rgba(255,215,120,0.18);
-}
-
-/* DROPDOWN */
-.subcategory-container{
-  position:absolute;
-  top:110%;
-  left:0;
-  min-width:240px;
-  display:none;
-  flex-direction:column;
-  gap:8px;
-  padding:14px;
-  border-radius:18px;
-  z-index:999;
-  background:
-    linear-gradient(145deg,
-      rgba(20,20,22,0.95),
-      rgba(12,12,14,0.96));
-  border:1px solid rgba(255,215,120,0.22);
-  backdrop-filter:blur(18px);
-  box-shadow:
-    0 20px 40px rgba(0,0,0,0.65),
-    0 0 24px rgba(255,215,120,0.12);
-  animation:dropdownFade .28s ease;
-}
-
-.subcategory-item{
-  padding:12px 14px;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:14px;
-  font-weight:600;
-  color:#f5ecd8;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.04);
-  transition:.28s ease;
-}
-
-.subcategory-item:hover{
-  transform:translateX(6px);
-  background:
-    linear-gradient(135deg,
-      rgba(255,215,120,0.16),
-      rgba(255,255,255,0.05));
-  border-color:rgba(255,215,120,0.35);
-  box-shadow:0 0 14px rgba(255,215,120,0.12);
-}
-
-@keyframes dropdownFade{
-  from{
-    opacity:0;
-    transform:translateY(10px) scale(.96);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
-}
-
-/* ===== FINAL RESPONSIVE CATEGORY FIX ===== */
-
-/* PC DEFAULT */
-#categoryBoxes{
-  display:flex;
   flex-wrap:wrap;
-  gap:12px;
+  margin-bottom:22px;
 }
 
-.category-wrapper{
-  width:fit-content;
+.premium-select{
+  min-width:240px;
+  padding:14px 18px;
+  border-radius:14px;
+  border:1px solid rgba(255,210,125,0.25);
+  background:rgba(255,255,255,0.05);
+  color:var(--text);
+  font-size:15px;
+  font-weight:600;
+  backdrop-filter:blur(10px);
+  outline:none;
+  transition:.3s ease;
+  box-shadow:0 8px 22px rgba(0,0,0,0.35);
 }
 
-.main-category{
-  width:auto;
+.premium-select:hover{
+  border-color:rgba(255,210,125,0.55);
 }
 
-/* MOBILE ONLY */
-@media (max-width:768px){
+.premium-select:focus{
+  border-color:var(--gold);
+  box-shadow:
+    0 0 18px rgba(255,210,125,0.25),
+    0 10px 30px rgba(0,0,0,0.45);
+}
 
-  #categoryBoxes{
-    flex-wrap:nowrap;
-    overflow-x:auto;
-  }
-
-  .category-wrapper{
-    display:flex;
-    flex-direction:column;
-    flex-shrink:0;
-  }
-
-  .subcategory-container{
-    flex-direction:row;
-    overflow-x:auto;
-    gap:8px;
-  }
-
+.premium-select option{
+  background:#111;
+  color:#fff;
 }
 
 /* =====Premium STYLE MOBILE UI ===== */
+
 @media (max-width:768px){
 
 body{
@@ -1080,27 +985,18 @@ header div{
 }
 
 
-/* ===== MOBILE DROPDOWN FIX ===== */
 @media(max-width:768px){
 
-  .category-wrapper{
-    position:relative;
-    flex-shrink:0;
+  .filter-wrap{
+    flex-direction:column;
+    gap:10px;
   }
 
-  .subcategory-container{
-    position:absolute !important;
-    top:115% !important;
-    left:0 !important;
-    right:auto !important;
-    min-width:220px !important;
-    max-width:260px;
-    z-index:99999;
-    overflow:hidden;
-  }
-
-  .subcategory-item{
-    white-space:nowrap;
+  .premium-select{
+    width:100%;
+    min-width:unset;
+    font-size:14px;
+    padding:14px;
   }
 
 }
@@ -1247,7 +1143,19 @@ Hello,
 </div>
 </div>
 <div style="margin:20px 0;">
-<div id="categoryBoxes"></div>
+
+<div class="filter-wrap">
+
+  <select id="mainCategoryFilter" class="premium-select">
+    <option value="">Select Category</option>
+  </select>
+
+  <select id="subCategoryFilter" class="premium-select">
+    <option value="">Select Sub Category</option>
+  </select>
+
+</div>
+
 </div>
 <div class="products-grid" id="productsGrid" style="margin-top:16px">
 <div class="empty" id="emptyNotice">No products have been added yet. Open <strong>Admin</strong> and add products to the catalog.</div>
@@ -1260,9 +1168,21 @@ Hello,
 <h2 class="premium-head">Our Achievements</h2>
 <p class="meta">Milestones and recognitions of Capital Hardwares &amp; Machineries.</p>
 <!-- PREMIUM CATEGORY + SUBCATEGORY -->
-<div style="margin:20px 0;">
-<div id="achievementCategoryBoxes" style="display:flex;flex-wrap:wrap;gap:12px;"></div>
+
+<div class="filter-wrap">
+
+  <select id="achievementCategoryFilter"
+          class="premium-select">
+    <option value="">Select Category</option>
+  </select>
+
+  <select id="achievementSubCategoryFilter"
+          class="premium-select">
+    <option value="">Select Sub Category</option>
+  </select>
+
 </div>
+
 <div class="products-grid" id="achievementGrid">
 <div class="empty">Achievements will appear here.</div>
 </div>
@@ -1986,82 +1906,103 @@ document.getElementById('importFile').addEventListener('change', function(e){
 <script>
 
 
-function renderSimpleCategoryBoxes(products){
-  const container = document.getElementById('categoryBoxes');
-  if(!container) return;
 
-  container.innerHTML = '';
+function setupPremiumCategoryFilters(products){
 
-  const categories = [...new Set(products.map(p=>p.category).filter(Boolean))];
+  const main = document.getElementById('mainCategoryFilter');
+  const sub = document.getElementById('subCategoryFilter');
 
-  categories.forEach(category=>{
+  if(!main || !sub) return;
 
-    const wrapper = document.createElement('div');
-    wrapper.className = "category-wrapper";
+  main.innerHTML =
+    '<option value="">Select Category</option>';
 
-    const mainBox = document.createElement('div');
-    mainBox.className = "main-category";
-    mainBox.textContent = category;
+  sub.innerHTML =
+    '<option value="">Select Sub Category</option>';
 
-    const subContainer = document.createElement('div');
-    subContainer.className = "subcategory-container";
+  const categories = [
+    ...new Set(products.map(p=>p.category).filter(Boolean))
+  ];
 
-    const subcats = [...new Set(
-      products
-        .filter(p => p.category === category)
-        .map(p => p.subcategory)
-        .filter(Boolean)
-    )];
+  categories.forEach(cat=>{
 
-    subcats.forEach(sub=>{
-      const subItem = document.createElement('div');
-      subItem.className = "subcategory-item";
-      subItem.textContent = sub;
+    const option = document.createElement('option');
+    option.value = cat;
+    option.textContent = cat;
 
-      subItem.onclick = ()=>{
-        filteredList = getProductsArray().filter(p =>
-          p.category === category &&
-          p.subcategory === sub
-        );
-        currentPage = 1;
-        renderProductsPage();
-      };
-
-      subContainer.appendChild(subItem);
-    });
-
-    mainBox.onclick = (e)=>{
-
-      e.stopPropagation();
-
-      const isOpen =
-        subContainer.style.display === "flex";
-
-      document.querySelectorAll('.subcategory-container')
-        .forEach(el => el.style.display = "none");
-
-      filteredList = getProductsArray().filter(p => p.category === category);
-      currentPage = 1;
-      renderProductsPage();
-
-      if(subcats.length > 0 && !isOpen){
-        subContainer.style.display = "flex";
-      }
-    };
-
-    wrapper.appendChild(mainBox);
-    wrapper.appendChild(subContainer);
-    container.appendChild(wrapper);
+    main.appendChild(option);
 
   });
+
+  main.onchange = ()=>{
+
+    const selected = main.value;
+
+    sub.innerHTML =
+      '<option value="">Select Sub Category</option>';
+
+    const subcats = [
+      ...new Set(
+        products
+          .filter(p => p.category === selected)
+          .map(p => p.subcategory)
+          .filter(Boolean)
+      )
+    ];
+
+    subcats.forEach(sc=>{
+
+      const option = document.createElement('option');
+      option.value = sc;
+      option.textContent = sc;
+
+      sub.appendChild(option);
+
+    });
+
+    filteredList = selected
+      ? getProductsArray().filter(p =>
+          p.category === selected
+        )
+      : getProductsArray();
+
+    currentPage = 1;
+    renderProductsPage();
+
+  };
+
+  sub.onchange = ()=>{
+
+    const cat = main.value;
+    const subcat = sub.value;
+
+    filteredList = getProductsArray().filter(p => {
+
+      const matchCat =
+        cat ? p.category === cat : true;
+
+      const matchSub =
+        subcat ? p.subcategory === subcat : true;
+
+      return matchCat && matchSub;
+
+    });
+
+    currentPage = 1;
+    renderProductsPage();
+
+  };
+
 }
+
 // Hook into existing product load safely
 const originalLoader = loadAndRenderProducts;
 loadAndRenderProducts = async function(){
   await originalLoader();
   const arr = getProductsArray();
-  renderSimpleCategoryBoxes(arr);
+  setupPremiumCategoryFilters(arr);
 };
+
 
 /* ===== LOAD ACHIEVEMENTS ===== */
 
@@ -2161,7 +2102,7 @@ async function loadAchievements(){
       allAchievements.push(item);
     });
 
-    renderAchievementCategoryBoxes(allAchievements);
+    setupAchievementFilters(allAchievements);
     renderAchievementPage();
 
   }catch(err){
@@ -2173,72 +2114,106 @@ async function loadAchievements(){
 
 }
 
-function renderAchievementCategoryBoxes(data){
 
-  const container = document.getElementById('achievementCategoryBoxes');
-  if(!container) return;
+function setupAchievementFilters(data){
 
-  container.innerHTML = '';
+  const main =
+    document.getElementById(
+      'achievementCategoryFilter'
+    );
 
-  const categories = [...new Set(data.map(a=>a.category).filter(Boolean))];
+  const sub =
+    document.getElementById(
+      'achievementSubCategoryFilter'
+    );
 
-  categories.forEach(category=>{
+  if(!main || !sub) return;
 
-    const wrapper = document.createElement('div');
-    wrapper.className = "category-wrapper";
+  main.innerHTML =
+    '<option value="">Select Category</option>';
 
-    const mainBox = document.createElement('div');
-    mainBox.className = "main-category";
-    mainBox.textContent = category;
+  sub.innerHTML =
+    '<option value="">Select Sub Category</option>';
 
-    const subContainer = document.createElement('div');
-    subContainer.className = "subcategory-container";
+  const categories = [
+    ...new Set(data.map(a=>a.category).filter(Boolean))
+  ];
 
-    const subcats = [...new Set(
-      data
-        .filter(a => a.category === category)
-        .map(a => a.subcategory)
-        .filter(Boolean)
-    )];
+  categories.forEach(cat=>{
 
-    subcats.forEach(sub=>{
-      const subItem = document.createElement('div');
-      subItem.className = "subcategory-item";
-      subItem.textContent = sub;
+    const option = document.createElement('option');
 
-      subItem.onclick = ()=>{
-        achievementsList = data.filter(a =>
-          a.category === category &&
-          a.subcategory === sub
-        );
-        achievementPage = 1;
-        renderAchievementPage();
-      };
+    option.value = cat;
+    option.textContent = cat;
 
-      subContainer.appendChild(subItem);
-    });
-
-    mainBox.onclick = ()=>{
-
-      document.querySelectorAll('#achievementCategoryBoxes .subcategory-container')
-        .forEach(el => el.style.display = "none");
-
-      achievementsList = allAchievements.filter(a => a.category === category);
-      achievementPage = 1;
-      renderAchievementPage();
-
-      if(subcats.length > 0){
-        subContainer.style.display = "flex";
-      }
-    };
-
-    wrapper.appendChild(mainBox);
-    wrapper.appendChild(subContainer);
-    container.appendChild(wrapper);
+    main.appendChild(option);
 
   });
 
+  main.onchange = ()=>{
+
+    const selected = main.value;
+
+    sub.innerHTML =
+      '<option value="">Select Sub Category</option>';
+
+    const subcats = [
+      ...new Set(
+        data
+          .filter(a => a.category === selected)
+          .map(a => a.subcategory)
+          .filter(Boolean)
+      )
+    ];
+
+    subcats.forEach(sc=>{
+
+      const option = document.createElement('option');
+
+      option.value = sc;
+      option.textContent = sc;
+
+      sub.appendChild(option);
+
+    });
+
+    achievementsList = selected
+      ? allAchievements.filter(a =>
+          a.category === selected
+        )
+      : allAchievements;
+
+    achievementPage = 1;
+
+    renderAchievementPage();
+
+  };
+
+  sub.onchange = ()=>{
+
+    const cat = main.value;
+    const subcat = sub.value;
+
+    achievementsList = allAchievements.filter(a=>{
+
+      const matchCat =
+        cat ? a.category === cat : true;
+
+      const matchSub =
+        subcat ? a.subcategory === subcat : true;
+
+      return matchCat && matchSub;
+
+    });
+
+    achievementPage = 1;
+
+    renderAchievementPage();
+
+  };
+
 }
+
 
 function renderAchievementPagination(){
 
@@ -2359,13 +2334,5 @@ window.addEventListener('load', ()=>{
 
 });
 </script>
-
-<script>
-document.addEventListener('click', ()=>{
-  document.querySelectorAll('.subcategory-container')
-    .forEach(el => el.style.display = 'none');
-});
-</script>
-
 </body>
 </html>
