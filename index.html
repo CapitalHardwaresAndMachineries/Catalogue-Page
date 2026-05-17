@@ -527,6 +527,22 @@ button[onclick="resetFilters()"]{
   background: rgba(255,255,255,0.06);
 }
 
+
+/* FIX NAVBAR SHOWING INSIDE POPUP */
+header nav{
+  position: relative;
+  z-index: 1;
+}
+
+.modal{
+  z-index: 99999 !important;
+}
+
+.modal .box{
+  position: relative;
+  z-index: 100000;
+}
+
 </style>
 <style>
 /* ===== PREMIUM VERTICAL CATEGORY STYLE ===== */
@@ -1163,17 +1179,13 @@ header div{
 const routes=['home','products','achievements','contact'];
 function showView(view){
 
-  // Keep header visible but hide desktop menu outside home page
+  // Show header only on home page
   const header = document.querySelector('header');
   if(header){
-    header.style.display = 'block';
+    header.style.display = (view === 'home') ? 'block' : 'none';
   }
 
-  const desktopNav = document.querySelector('header nav');
-  if(desktopNav && window.innerWidth > 768){
-    desktopNav.style.display = (view === 'home') ? 'flex' : 'none';
-  }
-routes.forEach(r=>{
+  routes.forEach(r=>{
     const el=document.getElementById('view-'+r);
     if(el) el.style.display = (r===view)?'block':'none';
   });
