@@ -1530,8 +1530,20 @@ function openAchievement(a){
 }
 
 function closeAchievementModal(){
-  document.getElementById("achievementModal")
-    .classList.remove("open");
+
+  const modal =
+    document.getElementById("achievementModal");
+
+  // Stop video if exists
+  const video =
+    modal.querySelector("video");
+
+  if(video){
+    video.pause();
+    video.currentTime = 0;
+  }
+
+  modal.classList.remove("open");
 }
 
 function showProductFromHash(hash){ const id = hash.split('-')[1]; if(id) openProduct(id); }
