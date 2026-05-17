@@ -659,53 +659,102 @@ body.loading{
 
 </style>
 <style>
-/* ===== PREMIUM VERTICAL CATEGORY STYLE ===== */
+/* ===== PREMIUM DROPDOWN CATEGORY MENU ===== */
+
+#categoryBoxes{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-bottom:20px;
+}
 
 .category-wrapper{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  margin-bottom:14px;
+  position:relative;
 }
 
 .main-category{
-  padding:12px 22px;
-  border-radius:30px;
+  position:relative;
+  padding:14px 22px;
+  min-width:220px;
+  border-radius:16px;
   cursor:pointer;
-  background:linear-gradient(135deg, rgba(185,139,39,0.15), rgba(255,255,255,0.05));
-  border:1px solid rgba(255,210,125,0.4);
-  font-weight:700;
-  letter-spacing:.5px;
-  transition:.3s ease;
+  background:
+    linear-gradient(145deg,
+      rgba(255,215,120,0.12),
+      rgba(255,255,255,0.04));
+  border:1px solid rgba(255,215,120,0.28);
+  color:#f5ecd8;
+  font-weight:800;
+  letter-spacing:.8px;
+  backdrop-filter:blur(12px);
+  transition:.35s ease;
+  box-shadow:
+    0 10px 28px rgba(0,0,0,0.45);
 }
 
 .main-category:hover{
-  transform:translateY(-3px);
-  box-shadow:0 8px 20px rgba(255,200,120,0.25);
+  transform:translateY(-4px);
+  border-color:rgba(255,215,120,0.6);
+  box-shadow:
+    0 14px 32px rgba(0,0,0,0.6),
+    0 0 20px rgba(255,215,120,0.18);
 }
 
+/* DROPDOWN */
 .subcategory-container{
+  position:absolute;
+  top:110%;
+  left:0;
+  min-width:240px;
   display:none;
-  flex-direction:row;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:8px;
+  flex-direction:column;
+  gap:8px;
+  padding:14px;
+  border-radius:18px;
+  z-index:999;
+  background:
+    linear-gradient(145deg,
+      rgba(20,20,22,0.95),
+      rgba(12,12,14,0.96));
+  border:1px solid rgba(255,215,120,0.22);
+  backdrop-filter:blur(18px);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.65),
+    0 0 24px rgba(255,215,120,0.12);
+  animation:dropdownFade .28s ease;
 }
 
 .subcategory-item{
-  display:inline-block;
-  padding:8px 14px;
-  border-radius:18px;
+  padding:12px 14px;
+  border-radius:12px;
   cursor:pointer;
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
   font-size:14px;
-  transition:.3s ease;
+  font-weight:600;
+  color:#f5ecd8;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.04);
+  transition:.28s ease;
 }
 
 .subcategory-item:hover{
-  background:linear-gradient(135deg, rgba(185,139,39,0.25), rgba(255,255,255,0.08));
   transform:translateX(6px);
+  background:
+    linear-gradient(135deg,
+      rgba(255,215,120,0.16),
+      rgba(255,255,255,0.05));
+  border-color:rgba(255,215,120,0.35);
+  box-shadow:0 0 14px rgba(255,215,120,0.12);
+}
+
+@keyframes dropdownFade{
+  from{
+    opacity:0;
+    transform:translateY(10px) scale(.96);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
 }
 
 /* ===== FINAL RESPONSIVE CATEGORY FIX ===== */
@@ -1498,8 +1547,41 @@ function closeModal(){
 
 function openAchievement(a){
 
-  document.getElementById("achImg").src =
-    a.image || "https://i.ibb.co/7jmqfBB/no-image.jpg";
+  const container = document.getElementById("achImg").parentElement;
+
+  if(a.video){
+
+    container.innerHTML = `
+      <video
+        id="achImg"
+        class="detail-img"
+        controls
+        autoplay
+        playsinline
+        preload="metadata"
+        style="
+          width:100%;
+          height:420px;
+          object-fit:contain;
+          background:#111;
+          border-radius:14px;
+        "
+      >
+        <source src="${a.video}" type="video/mp4">
+      </video>
+    `;
+
+  }else{
+
+    container.innerHTML = `
+      <img
+        id="achImg"
+        class="detail-img"
+        src="${a.image || 'https://i.ibb.co/7jmqfBB/no-image.jpg'}"
+      >
+    `;
+
+  }
 
   document.getElementById("achTitle").textContent =
     a.title || "";
@@ -1922,7 +2004,12 @@ function renderSimpleCategoryBoxes(products){
       subContainer.appendChild(subItem);
     });
 
-    mainBox.onclick = ()=>{
+    mainBox.onclick = (e)=>{
+
+      e.stopPropagation();
+
+      const isOpen =
+        subContainer.style.display === "flex";
 
       document.querySelectorAll('.subcategory-container')
         .forEach(el => el.style.display = "none");
@@ -1931,7 +2018,7 @@ function renderSimpleCategoryBoxes(products){
       currentPage = 1;
       renderProductsPage();
 
-      if(subcats.length > 0){
+      if(subcats.length > 0 && !isOpen){
         subContainer.style.display = "flex";
       }
     };
@@ -1978,10 +2065,38 @@ function renderAchievementPage(){
     el.style.animationDelay = `${index * 0.08}s`;
 
     el.innerHTML = `
-      <img loading="lazy" src="${a.image || 'https://i.ibb.co/7jmqfBB/no-image.jpg'}">
-      <h3>${a.title || '(no title)'}</h3>
-      <div class="meta">${a.date || ''}</div>
-    `;
+  ${
+    a.video
+    ? `
+      <video
+        muted
+        autoplay
+        loop
+        playsinline
+        preload="metadata"
+        style="
+          width:100%;
+          height:160px;
+          object-fit:cover;
+          border-radius:12px;
+          background:#111;
+          margin-bottom:8px;
+        "
+      >
+        <source src="${a.video}" type="video/mp4">
+      </video>
+    `
+    : `
+      <img
+        loading="lazy"
+        src="${a.image || 'https://i.ibb.co/7jmqfBB/no-image.jpg'}"
+      >
+    `
+  }
+
+  <h3>${a.title || '(no title)'}</h3>
+  <div class="meta">${a.date || ''}</div>
+`;
 
     el.onclick = ()=> openAchievement(a);
 
@@ -2218,5 +2333,13 @@ window.addEventListener('load', ()=>{
 
 });
 </script>
+
+<script>
+document.addEventListener('click', ()=>{
+  document.querySelectorAll('.subcategory-container')
+    .forEach(el => el.style.display = 'none');
+});
+</script>
+
 </body>
 </html>
