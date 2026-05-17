@@ -1363,11 +1363,11 @@ const STORAGE_KEY = 'cap_products';
 let PRODUCTS_MAP = {};
 let filteredList = [];
 let currentPage = 1;
-const perPage = 10;
+const perPage = 12;
 let achievementsList = [];
 let allAchievements = [];
 let achievementPage = 1;
-const achievementPerPage = 10;
+const achievementPerPage = 12;
 /* Load products - now from Firestore */
 async function loadProductsFromLocal(){
   // loads products from Firestore into PRODUCTS_MAP
@@ -1523,30 +1523,24 @@ function showProductFromHash(hash){ const id = hash.split('-')[1]; if(id) openPr
 
 /* Contact */
 function contactAbout(){
-  closeModal(); const id=document.getElementById('detailId').textContent; location.hash='contact'; setTimeout(()=>{ document.getElementById('subject').value=`Product inquiry: ID #${id} — ${document.getElementById('detailTitle').textContent}`; document.getElementById('message').focus(); },200); }
 
-function inquireAchievement(){
+  closeModal();
 
-  const title = document.getElementById('achTitle').textContent;
+  const id = document.getElementById('detailId').textContent;
 
-  closeAchievementModal();
-
-  location.hash='contact';
+  location.hash = 'contact';
 
   setTimeout(()=>{
 
     document.getElementById('subject').value =
-      `Achievement inquiry: ${title}`;
+      `Product inquiry: ID #${id} — ${document.getElementById('detailTitle').textContent}`;
 
-    document.getElementById('message').value =
-      `Hello, I would like to inquire about this achievement:\n\n${title}`;
-
-    document.getElementById('message').focus();
+    // FIRST highlight NAME
+    document.getElementById('name').focus();
 
   },200);
 
 }
-
 async function submitContact(e){
   e.preventDefault();
   const payload = {
