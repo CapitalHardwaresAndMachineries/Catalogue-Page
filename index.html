@@ -1215,8 +1215,10 @@ Hello,
 
 <img alt="Product image" class="detail-img" id="detailImg" src=""/>
 
-<button onclick="prevImage()"
+<button id="prevBtn"
+onclick="prevImage()"
 style="
+display:none;
 position:absolute;
 left:10px;
 top:50%;
@@ -1234,8 +1236,10 @@ cursor:pointer;
 ◀
 </button>
 
-<button onclick="nextImage()"
+<button id="nextBtn"
+onclick="nextImage()"
 style="
+display:none;
 position:absolute;
 right:10px;
 top:50%;
@@ -1517,6 +1521,14 @@ function openProduct(id){
 
   document.getElementById('detailImg').src =
     currentImages[currentImageIndex];
+
+  const showArrows = currentImages.length > 1;
+
+  document.getElementById('prevBtn').style.display =
+    showArrows ? 'block' : 'none';
+
+  document.getElementById('nextBtn').style.display =
+    showArrows ? 'block' : 'none';
   document.getElementById('detailTitle').textContent = p.title || '';
   document.getElementById('detailDesc').innerHTML = (p.description || '').replace(/\n/g, "<br>");
   
