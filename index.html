@@ -529,19 +529,27 @@ button[onclick="resetFilters()"]{
 
 
 /* FINAL POPUP OVERLAY FIX */
+
+/* keep original header exactly same */
 header{
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  position:relative;
 }
 
+/* ONLY nav sticks while scrolling */
 header nav{
-  position: relative;
-  z-index: 100;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:inline-flex !important;
+  width:auto !important;
+  margin:0 auto !important;
+  padding:0 !important;
+  background:transparent !important;
 }
 
+/* modal safety */
 .modal{
-  z-index: 999999 !important;
+  z-index:999999 !important;
 }
 
 .modal.open{
@@ -1048,7 +1056,7 @@ header div{
 </div>
 </div>
 <!-- Navigation -->
-<nav style="display:flex; gap:12px;">
+<nav style="display:flex; gap:12px;color: rgb(241, 229, 172);">
 <a class="active" data-route="home" href="#home">Home</a>
 <a data-route="products" href="#products">Products</a>
 <a data-route="achievements" href="#achievements">Achievements</a>
@@ -1202,7 +1210,51 @@ Hello,
 <div class="modal" id="modal" onclick="if(event.target.id==='modal') closeModal()">
 <div aria-modal="true" class="box card" role="dialog">
 <div>
+
+<div style="position:relative;">
+
 <img alt="Product image" class="detail-img" id="detailImg" src=""/>
+
+<button onclick="prevImage()"
+style="
+position:absolute;
+left:10px;
+top:50%;
+transform:translateY(-50%);
+z-index:10;
+background:rgba(0,0,0,0.65);
+color:#fff;
+border:none;
+width:48px;
+height:48px;
+border-radius:50%;
+font-size:22px;
+cursor:pointer;
+">
+◀
+</button>
+
+<button onclick="nextImage()"
+style="
+position:absolute;
+right:10px;
+top:50%;
+transform:translateY(-50%);
+z-index:10;
+background:rgba(0,0,0,0.65);
+color:#fff;
+border:none;
+width:48px;
+height:48px;
+border-radius:50%;
+font-size:22px;
+cursor:pointer;
+">
+▶
+</button>
+
+</div>
+
 <h2 class="premium-sub" id="detailTitle"></h2>
 </div>
 <div>
@@ -1349,6 +1401,9 @@ const perPage = 12;
 let achievementsList = [];
 let allAchievements = [];
 let achievementPage = 1;
+
+let currentImages = [];
+let currentImageIndex = 0;
 const achievementPerPage = 12;
 /* Load products - now from Firestore */
 async function loadProductsFromLocal(){
@@ -1454,8 +1509,14 @@ function openProduct(id){
   // loadProductsFromLocal(); // not needed; PRODUCTS_MAP should be populated
   const p = PRODUCTS_MAP[id];
   if(!p) return alert('Product not found.');
-  const productImage = p.image || p.img || p.imgUrl || p.url || 'https://i.ibb.co/7jmqfBB/no-image.jpg';
-  document.getElementById('detailImg').src = productImage;
+  currentImages = (p.images && p.images.length)
+    ? p.images
+    : [p.image || p.img || p.imgUrl || p.url || 'https://i.ibb.co/7jmqfBB/no-image.jpg'];
+
+  currentImageIndex = 0;
+
+  document.getElementById('detailImg').src =
+    currentImages[currentImageIndex];
   document.getElementById('detailTitle').textContent = p.title || '';
   document.getElementById('detailDesc').innerHTML = (p.description || '').replace(/\n/g, "<br>");
   
@@ -1477,6 +1538,35 @@ function closeModal(){
     history.replaceState(null, null, '#products');
   }
 }
+
+window.nextImage = function(){
+
+  if(currentImages.length <= 1) return;
+
+  currentImageIndex++;
+
+  if(currentImageIndex >= currentImages.length){
+    currentImageIndex = 0;
+  }
+
+  document.getElementById('detailImg').src =
+    currentImages[currentImageIndex];
+}
+
+window.prevImage = function(){
+
+  if(currentImages.length <= 1) return;
+
+  currentImageIndex--;
+
+  if(currentImageIndex < 0){
+    currentImageIndex = currentImages.length - 1;
+  }
+
+  document.getElementById('detailImg').src =
+    currentImages[currentImageIndex];
+}
+
 
 function openAchievement(a){
 
