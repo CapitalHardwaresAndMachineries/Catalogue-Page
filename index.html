@@ -665,6 +665,19 @@ body.loading{
   overflow:hidden;
 }
 
+
+
+#productSearch{
+  min-width:240px;
+  width:240px;
+}
+@media(max-width:768px){
+  #productSearch{
+    width:100%;
+    min-width:unset;
+  }
+}
+
 </style>
 <style>
 
@@ -1149,6 +1162,11 @@ Hello,
     <option value="">Select Sub Category</option>
   </select>
 
+  <input id="productSearch" class="premium-select" type="search"
+         placeholder="Search"
+         onkeydown="if(event.key==='Enter'){event.preventDefault();filterProductSearch();}"
+         onsearch="filterProductSearch()">
+
 </div>
 
 </div>
@@ -1478,8 +1496,8 @@ function renderPagination(){
   const container = document.getElementById('pagination');
   const total = Math.max(1, Math.ceil(filteredList.length / perPage));
   container.innerHTML='';
-  const prev = document.createElement('button'); prev.className='btn secondary'; prev.textContent='Prev'; prev.disabled = currentPage===1; prev.onclick = ()=>{ currentPage--; renderProductsPage(); };
-  const next = document.createElement('button'); next.className='btn secondary'; next.textContent='Next'; next.disabled = currentPage===total; next.onclick = ()=>{ currentPage++; renderProductsPage(); };
+  const prev = document.createElement('button'); prev.className='btn secondary'; prev.textContent='Prev'; prev.disabled = currentPage===1; prev.onclick = ()=>{ currentPage--; filterProductSearch(); };
+  const next = document.createElement('button'); next.className='btn secondary'; next.textContent='Next'; next.disabled = currentPage===total; next.onclick = ()=>{ currentPage++; filterProductSearch(); };
   container.appendChild(prev);
   const startPage = Math.max(1, currentPage-2); const endPage = Math.min(total, currentPage+2);
   for(let i=startPage;i<=endPage;i++){ const b=document.createElement('button'); b.className='btn secondary'; b.textContent=i; if(i===currentPage) b.style.fontWeight='700'; b.onclick = ()=>{ currentPage=i; renderProductsPage(); }; container.appendChild(b); }
@@ -2007,6 +2025,24 @@ document.getElementById('importFile').addEventListener('change', function(e){
 <script>
 
 
+
+
+function filterProductSearch(){
+ const keyword=(document.getElementById('productSearch')?.value||'').toLowerCase().trim();
+ const cat=document.getElementById('mainCategoryFilter').value;
+ const sub=document.getElementById('subCategoryFilter').value;
+ filteredList=getProductsArray().filter(p=>{
+   const mc=!cat||p.category===cat;
+   const ms=!sub||p.subcategory===sub;
+   const mq=!keyword||
+      (p.title||'').toLowerCase().includes(keyword)||
+      (p.description||'').toLowerCase().includes(keyword)||
+      ((p.tags||[]).join(' ').toLowerCase().includes(keyword));
+   return mc&&ms&&mq;
+ });
+ currentPage=1;
+ renderProductsPage();
+}
 
 function setupPremiumCategoryFilters(products){
 
